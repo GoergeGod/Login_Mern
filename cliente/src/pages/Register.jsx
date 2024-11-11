@@ -18,27 +18,27 @@ const Register = () => {
     singup(values)
   })
   return (
-    <div className="bg-zinc-800 max-w-md p-10 rounded-md ">
+    <div className="max-w-md p-10 rounded-md bg-zinc-800 ">
      
       {
         RegisterErrors.map((error, i) => (
-          <div className="bg-red-500 text-white p-2" key={i}> {error} </div>
+          <div className="p-2 my-2 text-white bg-red-500" key={i}> {error} </div>
         ))
       }
       <form className="space-y-4" onSubmit={onSubmited}>
-        <input className="w-full bg-zinc-600 text-white px-4 py-4 rounded-md" type="text" {...register("username", {required: true})} placeholder="Username"  />
+        <input className="w-full px-4 py-4 text-white rounded-md bg-zinc-600" type="text" {...register("username", {required: true})} placeholder="Username"  />
         {
           errors.username && <p className="text-red-500">Usernae is Required</p>
         }
-        <input className="w-full bg-zinc-600 text-white px-4 py-4 rounded-md" type="email"  {...register("email", {required: true})} placeholder="Email"/>
+        <input className="w-full px-4 py-4 text-white rounded-md bg-zinc-600" type="email"  {...register("email", {required: true})} placeholder="Email"/>
         {
           errors.email && <p className="text-red-500">Email is Required</p>
         }
-        <input className="w-full bg-zinc-600 text-white px-4 py-4 rounded-md" type="password"  {...register("password", {required: true})} placeholder="Password"/>
+        <input className="w-full px-4 py-4 text-white rounded-md bg-zinc-600" type="password"  {...register("password", {required: true})} placeholder="Password"/>
         {
           errors.password && <p className="text-red-500">Password is REquired</p>
         }
-        <button className=" bg-blue-500 hove:bg-slate-700 text-white font-bold py-2 rounded px-4">Register</button>
+        <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded  hove:bg-slate-700">Register</button>
       </form>
     </div>
   )

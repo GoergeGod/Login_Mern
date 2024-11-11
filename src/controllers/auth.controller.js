@@ -1,6 +1,9 @@
+import { TOKEN_SECRET } from "../config.js";
 import { createTokenAccess } from "../libs/jwt.js";
 import User from "../models/user.models.js";
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken'
+
 
 const register = async (requese, response) => {
     const {email, password, username} = requese.body;
@@ -67,9 +70,27 @@ const profile = async (requese, response) => {
 
 }
 
+const verifyToken = async( requese, response) => {
+    const { token } = requese.cookies;
+    if(!token) return response.status(401).json({message: "Unauthorized"})
+        jwt.verify( token, TOKEN_SECRET, async( error, user) => {
+            if(error) return response.status(401).json({message: "Unathorized"})
+
+                const userFound = await User.findById(user.id)
+                if(!userFound) return response.status(401).json({message: "Unauthorized"})
+                    return response.json({
+                        id:userFound.id,
+                        username: userFound.username,
+                        email: userFound.email
+                })
+    })
+        
+}
+
 export {
     register, 
     login, 
     logout,
-    profile
+    profile,
+    verifyToken
 }
